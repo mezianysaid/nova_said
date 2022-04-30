@@ -1,0 +1,40 @@
+<div class="container mt-2 head">
+    <mat-grid-list cols="2" rowHeight="50px">
+        <mat-grid-tile>
+            <section *ngIf="role === 'ADMIN'">
+                <button mat-mini-fab (click)="ShowModuleDialog()"><mat-icon >add</mat-icon></button>
+            </section>
+        </mat-grid-tile>
+        <!-- <mat-grid-tile> -->
+        <!-- </mat-grid-tile> -->
+        <mat-grid-tile class="search">
+            <mat-form-field class="search-form-field" floatLabel="never" appearance="fill">
+                <input matInput name="searchTerm" [(ngModel)]="searchTerm" (ngModelChange)="Search()" placeholder="Search" type="text">
+                <mat-icon matSuffix *ngIf="!searchTerm">search</mat-icon>
+                <button mat-button color="primary" mat-icon-button matSuffix aria-label="Clear" *ngIf="searchTerm" (click)="clearSearch()">
+                      <mat-icon>cancel</mat-icon> </button>
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<div class="content container row">
+    <mat-card *ngFor="let blg of (blogs$ | async)" class="card blog-card mat-elevation-z8 col-lg-4 col-md-6 col-xs-12 mt-4">
+        <mat-card-header>
+            <section *ngIf="blg.image;else altImage" class="col-12">
+                <img [src]="blg.image" class="img">
+            </section>
+            <ng-template #altImage> <img src="../../../assets/images/bak7.jpg" class="img"></ng-template>
+        </mat-card-header>
+        <mat-card-content align="center" class="mt-1">
+            <mat-divider></mat-divider>
+            <h4><a (click)="DetailsBlog(blg._id)">
+                    {{blg.title}}
+              <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>                  
+                  </a>
+            </h4>
+        </mat-card-content>
+    </mat-card>
+</div>
+<section class="container alert alert-success" *ngIf="len == 0">
+    <h3>Sorry this page does not have any blog yet ... <a href="/home">home</a></h3>
+</section>

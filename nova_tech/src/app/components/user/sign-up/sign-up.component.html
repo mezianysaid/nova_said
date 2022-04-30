@@ -1,0 +1,115 @@
+<div class="mat-elevation-z8">
+    <mat-card>
+        <div align="center"> <img src="/assets/images/user2.png" id="icon" alt="User icon"></div>
+        <div class="alert alert-danger" *ngIf="AuthService.ErrorMsg">
+            {{AuthService.ErrorMsg}}
+        </div>
+        <div class="alert alert-success" *ngIf="showSeccesMessage">
+            SAVED SUCCESSFULLY .
+        </div>
+        <div class="alert alert-success" *ngIf="serverErrorMessage">
+            {{serverErrorMessage}}
+        </div>
+        <h2>Create new account: </h2>
+        <mat-horizontal-stepper>
+            <mat-step [stepControl]="AuthService.formUser" label="Full Name:" errorMessage="FullName is required.">
+                <form [formGroup]="AuthService.formUser" (ngSubmit)="onSubmit()">
+                    <section class="row">
+                        <mat-form-field>
+                            <mat-label>Full Name:</mat-label>
+                            <input formControlName="fullName" required matInput type="text" placeholder="said *">
+                            <i class="fa fa-email" matSuffix></i>
+                            <mat-error *ngIf="AuthService.formUser.controls['fullName'].errors?.['required']"> This field is mandatory</mat-error>
+                            <mat-hint align="end">3 characters atleast</mat-hint>
+                        </mat-form-field>
+                    </section>
+                    <div class="" align="center">
+                        <button mat-raised-button matStepperNext><strong>Next >></strong></button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="AuthService.formUser" label="E-mail:">
+                <form [formGroup]="AuthService.formUser" (ngSubmit)="onSubmit()">
+                    <section class="row">
+                        <mat-form-field>
+                            <mat-label>E-mail:</mat-label>
+                            <input formControlName="email" required matInput type="email" placeholder="meziany@gmail.com*">
+                            <mat-error *ngIf="AuthService.formUser.controls['email'].errors?.['required']"> This field is mandatory</mat-error>
+                            <mat-error *ngIf="AuthService.formUser.controls['email'].errors?.['email']"> This email adress not valid</mat-error>
+                        </mat-form-field>
+                    </section>
+                    <div class="" align="center">
+                        <button mat-raised-button matStepperPrevious><strong>Back </strong></button>
+                        <button mat-raised-button matStepperNext><strong>Next >></strong></button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="AuthService.formUser" label="Password:">
+                <form [formGroup]="AuthService.formUser" (ngSubmit)="onSubmit()">
+                    <section class="row">
+                        <mat-form-field>
+                            <mat-label>Password:</mat-label>
+                            <input formControlName="password" required matInput type="password" placeholder="********">
+                            <mat-error *ngIf="AuthService.formUser.controls['password'].errors?.['required']"> This field is mandatory</mat-error>
+                            <mat-error *ngIf="AuthService.formUser.controls['password'].errors?.['minlength']">password must be atleast 4 character</mat-error>
+                            <mat-hint align="end">3 characters atleast</mat-hint>
+                        </mat-form-field>
+                    </section>
+                    <div class="" align="center">
+                        <button mat-raised-button matStepperPrevious><strong>Back </strong></button>
+                        <button mat-raised-button matStepperNext><strong>Next >></strong></button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="AuthService.formUser" label="Confirmpassword:">
+                <form [formGroup]="AuthService.formUser" (ngSubmit)="onSubmit()">
+                    <section class="row">
+                        <mat-form-field>
+                            <mat-label>Confirm Password:</mat-label>
+                            <input required [class.is-invalid]="AuthService.formUser.errors?.['mismatch']" formControlName="Confirmpassword" matInput type="password" placeholder="********">
+                            <mat-error *ngIf="AuthService.formUser.controls['Confirmpassword'].errors?.['required']"> This field is mandatory</mat-error>
+                            <mat-error *ngIf="AuthService.formUser.errors?.['mismatch']">password must be atleast 4 character</mat-error>
+                            <mat-hint align="end">4 characters atleast</mat-hint>
+                        </mat-form-field>
+                    </section>
+                    <div class="" align="center">
+                        <button mat-raised-button matStepperPrevious><strong>Back </strong></button>
+                        <button mat-raised-button matStepperNext><strong>Next >></strong></button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="AuthService.formUser" label="Roles :" optional>
+                <form [formGroup]="AuthService.formUser" (ngSubmit)="onSubmit()">
+                    <section class="row">
+                        <mat-form-field>
+                            <mat-label>Role:</mat-label>
+                            <input formControlName="Roles" matInput type="text" placeholder="*******" />
+                            <mat-select formControlName="Roles" [(value)]="roleSelected">
+                                <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div *ngIf="roleSelected ==='ADMIN'">
+                            <mat-form-field>
+                                <mat-label>ID :just for admins</mat-label>
+                                <input formControlName="idAdmin" matInput type="text" placeholder="*******" />
+                            </mat-form-field>
+                        </div>
+                    </section>
+                    <div class="" align="center">
+                        <!-- <button mat-raised-button matStepperPrevious><strong>Back </strong></button> -->
+                        <!-- <button mat-raised-button matStepperNext><strong>Next >></strong></button> -->
+                        <button mat-raised-button type="submit" [disabled]="AuthService.formUser.invalid">Register</button>
+                        <button mat-raised-button color="warn" type="reset" matTooltip="DELETE info" matTooltipPosition="above">Cancel</button>
+                    </div>
+                </form>
+            </mat-step>
+
+
+
+        </mat-horizontal-stepper>
+    </mat-card>
+</div>

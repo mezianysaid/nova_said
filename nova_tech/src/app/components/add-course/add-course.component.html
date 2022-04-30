@@ -1,0 +1,12 @@
+<div class="card container mt-2">
+    <h3 align="center"><u><b>Add a Blog:</b></u></h3>
+    <form [formGroup]='_serviceBlog.formCourse' class="card container" (ngSubmit)="AddBlog($event)">
+        <p-editor formControlName="content" [style]="{'height':'320px'}">
+        </p-editor>
+        <mat-divider></mat-divider>
+        <div align="end" class="mt-1">
+            <button mat-raised-button color="primary" [disabled]="!_serviceBlog.formCourse.valid"><mat-icon class="mr-1" >save</mat-icon>Add</button>
+            <button mat-raised-button color="warn" (click)="closedialog()"><mat-icon class="mr-1">close</mat-icon>close</button>
+        </div>
+    </form>
+</div>

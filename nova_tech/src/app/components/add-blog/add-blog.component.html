@@ -1,0 +1,20 @@
+<div class="card container mt-2">
+    <h2 align="center"><u><b>Add a Blog:</b></u></h2>
+    <form [formGroup]='_serviceBlog.formBlog' class="card" (ngSubmit)="AddBlog($event)">
+        <mat-form-field appearance="outline">
+            <mat-label>Title of the Blog :</mat-label>
+            <input formControlName="title" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <ngx-mat-file-input formControlName="image" placeholder="Select Image" valuePlaceholder="No image file selected">
+                <mat-icon matSuffix>image</mat-icon>
+            </ngx-mat-file-input>
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <div align="end" class="mt-1">
+            <button mat-raised-button color="primary" [disabled]="!_serviceBlog.formBlog.valid"><mat-icon class="mr-1">save</mat-icon>Add</button>
+            <button mat-raised-button color="warn" (click)="closedialog()"><mat-icon class="mr-1">close</mat-icon>close</button>
+        </div>
+    </form>
+</div>

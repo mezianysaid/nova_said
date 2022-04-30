@@ -1,0 +1,56 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === true">
+        <!-- <mat-toolbar> -->
+        <div class="ml-auto divClose">
+            <button mat-mini-fab color="warn" mat-mini-fab (click)="drawer.close()"><mat-icon >close</mat-icon></button>
+
+        </div>
+        <!-- </mat-toolbar> -->
+        <section align="center" class="mt-4 mb-3"><b class="bold">NOVA_SAID</b></section>
+        <mat-nav-list>
+            <mat-divider></mat-divider>
+            <a mat-list-item class="nav-link" routerLinkActive="list-item-active" routerLink="home">
+                <mat-icon class="mr-1">home</mat-icon> Home</a>
+            <mat-divider></mat-divider>
+            <a mat-list-item class="nav-link" routerLinkActive="list-item-active" routerLink="ML">
+                <mat-icon class="mr-1">article</mat-icon> Machine Learning</a>
+            <mat-divider></mat-divider>
+            <a mat-list-item class="nav-link" routerLinkActive="list-item-active" routerLink="DL">
+                <mat-icon class="mr-1">article</mat-icon> Deep Learning</a>
+            <mat-divider></mat-divider>
+            <a mat-list-item class="nav-link" routerLinkActive="list-item-active" routerLink="angular">
+                <mat-icon class="mr-1">article</mat-icon> Angular</a>
+            <mat-divider></mat-divider>
+        </mat-nav-list>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar class="bg-header">
+
+            <button type="button" class="mr-4" aria-label="Toggle sidenav" mat-raised-button mat-icon-button (click)="drawer.toggle()">
+             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon></button>
+            <b class="ml-4">NOVA_SAID</b>
+            <div class="spacer" align="center">
+
+                <nav mat-tab-nav-bar mat-align-tabs="center">
+                    <a class="navLinks" mat-tab-link *ngFor="let link of paths" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+                        <mat-icon class="p-0 m-0">{{link.icon}}</mat-icon> {{link.label}}
+                    </a>
+                </nav>
+            </div>
+            <div class="ml-auto nav_buttons">
+                <button mat-raised-button class="mr-1 btnNav" (click)="logout()"> <mat-icon>logout</mat-icon>Log Out</button>
+                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                    <button mat-menu-item><mat-icon>logout</mat-icon>Log Out</button>
+                </mat-menu>
+            </div>
+        </mat-toolbar>
+
+        <div class="container wrapper">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

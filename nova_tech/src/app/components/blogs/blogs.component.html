@@ -1,0 +1,28 @@
+<ng-container class="container">
+    <div class="container mt-2 head" align="end" *ngIf="role === 'ADMIN'">
+        <button mat-mini-fab (click)="ShowModuleDialog()"><mat-icon >add</mat-icon></button>
+        <button mat-mini-fab (click)="ShowDivImage()"><mat-icon >image</mat-icon></button>
+    </div>
+    <section *ngIf="show==true" class="card container">
+        <form [formGroup]='_serviceBlog.formImage' class="card container" (ngSubmit)="AddImage($event)">
+            <mat-form-field>
+                <ngx-mat-file-input formControlName="filename" placeholder="Select Image" valuePlaceholder="No image file selected">
+                    <mat-icon matSuffix>image</mat-icon>
+                </ngx-mat-file-input>
+            </mat-form-field>
+            <section align="end"><button mat-raised-button color="warn" type="submit" [disabled]="!_serviceBlog.formImage.valid">save</button></section>
+        </form>
+    </section>
+    <div class="container row">
+        <section *ngFor="let blg of (blogs$ | async)  " class="card container">
+            <section class="" align="center">
+                <h3 class>{{blg.title}}</h3>
+            </section>
+            <mat-divider></mat-divider>
+            <section *ngFor="let cours of blg.courses" class="code">
+                <article *ngIf="cours.content!=undefined" [innerHTML]="sanitizer.bypassSecurityTrustHtml(cours.content!)"></article>
+                <section *ngIf="cours.image"><img [src]="cours.image"></section>
+            </section>
+        </section>
+    </div>
+</ng-container>
